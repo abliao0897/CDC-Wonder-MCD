@@ -213,5 +213,5 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
         data = response.text
     else:
         print("something went wrong")
-    return data, gender, race
+    return data
 
