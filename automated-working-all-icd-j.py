@@ -1,5 +1,3 @@
-icd = "All ICD" #Can change for specific ICD code
-
 year = input("Please type the year range: 2000-2004, 2005-2009, 2010-2014, 2015-2019 or all\n")
 if year == "2000-2004":
     year_code = ["2000", "2001", "2002", "2003", "2004"]
@@ -43,9 +41,9 @@ def get_race_code(race):
 race_code = get_race_code(race)
 
 
-def get_data_from_cdc(year_code, gender_code, race_code, age_code):
 
-    b_parameters = {
+
+b_parameters = {
         "B_1": "D77.V2-level2", 
         "B_2": "*None*", 
         "B_3": "*None*", 
@@ -53,7 +51,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
         "B_5": "*None*"
     }
 
-    m_parameters = {
+m_parameters = {
         "M_1": "D77.M1",   # Deaths, must be included
         "M_2": "D77.M2",   # Population, must be included
         "M_3": "D77.M3",   # Crude rate, must be included
@@ -65,7 +63,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
     }
 
 
-    f_parameters = {
+f_parameters = {
         "F_D77.V1": year_code, # year/month
         "F_D77.V10": ["*All*"], # Census Regions - dont change
         "F_D77.V13": ["*All*"], # Census Regions - dont change
@@ -76,7 +74,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
         "F_D77.V9": ["*All*"] # State County - dont change
     }
 
-    i_parameters = {
+i_parameters = {
         "I_D77.V1": "2000 (2000)",  # year/month
         "I_D77.V10": "*All* (The United States)", # Census Regions - dont change
         "I_D77.V2": "*All* (All Causes of Death)", # ICD-10 Codes
@@ -86,7 +84,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
     }
 
 
-    v_parameters = {
+v_parameters = {
         "V_D77.V1": "",         # Year/Month
         "V_D77.V10": "",        # Census Regions
         "V_D77.V11": "*All*",   # 2006 Urbanization
@@ -110,7 +108,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
         "V_D77.V26_AND": "",
         "V_D77.V27": "",        # HHS Regions
         "V_D77.V4": "*All*",    # ICD-10 113 Cause List
-        "V_D77.V5": age_code, # Ten-Year Age Groups
+        "V_D77.V5": "85+", # Ten-Year Age Groups
         "V_D77.V51": "*All*",   # Five-Year Age Groups
         "V_D77.V52": "*All*",   # Single-Year Ages
         "V_D77.V6": "00",       # Infant Age Groups
@@ -119,7 +117,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
         "V_D77.V9": "",          # State/County
     }
 
-    o_parameters = {
+o_parameters = {
         "O_V10_fmode": "freg",    # Use regular finder and ignore v parameter value
         "O_V1_fmode": "freg",     # Use regular finder and ignore v parameter value
         "O_V13_fmode": "fadv",     # Use regular finder and ignore v parameter value
@@ -147,7 +145,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
     }
 
 
-    vm_parameters = {
+vm_parameters = {
         "VM_D77.M6_D77.V10": "",        # Location
         "VM_D77.M6_D77.V17": "*All*",   # Hispanic-Origin
         "VM_D77.M6_D77.V1_S": "*All*",  # Year
@@ -155,7 +153,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
         "VM_D77.M6_D77.V8": "*All*"     # Race
     }
 
-    misc_parameters = {
+misc_parameters = {
         "action-Send": "Send",
         "finder-stage-D77.V1": "codeset",
         "finder-stage-D77.V10": "codeset",
@@ -170,7 +168,7 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
         "stage": "request"
     }
 
-    def createParameterList(parameterList):
+def createParameterList(parameterList):
         """Helper function to create a parameter list from a dictionary object"""
         
         parameterString = ""
@@ -189,29 +187,33 @@ def get_data_from_cdc(year_code, gender_code, race_code, age_code):
             
         return parameterString
 
-    xml_request = "<request-parameters>\n"
-    xml_request += createParameterList(b_parameters)
-    xml_request += createParameterList(m_parameters)
-    xml_request += createParameterList(f_parameters)
-    xml_request += createParameterList(i_parameters)
-    xml_request += createParameterList(o_parameters)
-    xml_request += createParameterList(vm_parameters)
-    xml_request += createParameterList(v_parameters)
-    xml_request += createParameterList(misc_parameters)
-    xml_request += "</request-parameters>"
+xml_request = "<request-parameters>\n"
+xml_request += createParameterList(b_parameters)
+xml_request += createParameterList(m_parameters)
+xml_request += createParameterList(f_parameters)
+xml_request += createParameterList(i_parameters)
+xml_request += createParameterList(o_parameters)
+xml_request += createParameterList(vm_parameters)
+xml_request += createParameterList(v_parameters)
+xml_request += createParameterList(misc_parameters)
+xml_request += "</request-parameters>"
 
-    #print(xml_request)
+print(xml_request)
+input()
 
-    import requests
+import requests
 
-    url = "https://wonder.cdc.gov/controller/datarequest/D77"
-    response = requests.post(url, data={"request_xml": xml_request, "accept_datause_restrictions": "true"})
+url = "https://wonder.cdc.gov/controller/datarequest/D77"
+response = requests.post(url, data={"request_xml": xml_request, "accept_datause_restrictions": "true"})
 
 
-    if response.status_code == 200:
-        print("Data retreived from CDC Wonder!")
-        data = response.text
-    else:
-        print("something went wrong")
-    return data
+if response.status_code == 200:
+    print("Data retreived from CDC Wonder!")
+    data = response.text
+else:
+    print("something went wrong")
+
+    
+print(data)
+input()
 
