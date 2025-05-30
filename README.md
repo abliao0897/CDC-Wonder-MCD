@@ -1,6 +1,6 @@
 # CDC-Wonder-MCD
 
-This program is a query tool that uses CDC Wonder's API to access and retrieve records from the Multiple Cause of Death (MCD) database. This program was adapted from [alipphardt's](https://github.com/alipphardt) fantastic work on the CDC Wonder API for Single Cause of Death (SCD) database located here: https://github.com/alipphardt/cdc-wonder-api and was modified to query the MCD database and allow for options not allowed in the SCD query. Specifically, D77.V13 which allows for selection of MCD ICD-10 codes and D77.V2 which allows for selection of underlying cause of death ICD-10 codes. 
+This program is a commnad line query tool that uses CDC Wonder's API to access and retrieve records from the Multiple Cause of Death (MCD) database. This program was adapted from [alipphardt's](https://github.com/alipphardt) fantastic work on the CDC Wonder API for Single Cause of Death (SCD) database located here: https://github.com/alipphardt/cdc-wonder-api and was modified to query the MCD database and allow for options not allowed in the SCD query. Specifically, D77.V13 which allows for selection of MCD ICD-10 codes and D77.V2 which allows for selection of underlying cause of death ICD-10 codes. 
 
 This program is reliant on the [requests](https://pypi.org/project/requests/) library.
 
