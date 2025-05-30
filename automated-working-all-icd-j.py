@@ -89,15 +89,15 @@ v_parameters = {
         "V_D77.V10": "",        # Census Regions
         "V_D77.V11": "*All*",   # 2006 Urbanization
         "V_D77.V12": "*All*",   # ICD-10 130 Cause List (Infants)
-        "V_D77.V13": "*All*",
-        "V_D77.V13_AND": "",
+        "V_D77.V13": "*All*",   # MCD ICD-10 Codes
+        "V_D77.V13_AND": "",    # Secondary MCD ICD-10 Codes
         "V_D77.V15": "",
         "V_D77.V15_AND": "",
         "V_D77.V16": "",
         "V_D77.V16_AND": "",
         "V_D77.V17": "*All*",   # Hispanic Origin
         "V_D77.V19": "*All*",   # 2013 Urbanization
-        "V_D77.V2": "",         # ICD-10 Codes
+        "V_D77.V2": "",         # SCD ICD-10 Codes
         "V_D77.V20": "*All*",   # Autopsy
         "V_D77.V21": "*All*",   # Place of Death
         "V_D77.V22": "*All*",   # Injury Intent
